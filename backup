@@ -81,6 +81,7 @@ CompTIA Security+ [SY0-401] Network Security: http://www.mediafire.com/download/
 150+ Books on Security Shit: https://www.mediafire.com/folder/y952n2935ocnf/Documents
 
 
+https://www.hacker101.com
 
 ===============================================
 0x700 - Footprinting & Information Gathering
@@ -118,6 +119,13 @@ Web Vulnerabilities and How to Exploit & Secure them: http://www.mediafire.com/d
 +Cyber-Offense.rar
 All About Buffer Overflows: http://www.mediafire.com/download/sbst1evvisywe62/Buffer+Overflow.rar
 
+SQL injection cheat sheet
+https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/
+
+GPON router - python 
+https://www.kitploit.com/2018/05/gpon-python-exploit-for-remote-code.html?m=1
+
+https://blog.appsecco.com/a-penetration-testers-guide-to-sub-domain-enumeration-7d842d5570f6?gi=d2638cc2d626
 
 
 ===============================================
@@ -160,13 +168,15 @@ Perl Documents: http://www.mediafire.com/file/02om55j9itey5x6/Perl.rar
 Reverse Engineering: http://www.mediafire.com/file/j6bgke83y4eyo2x/Reverse+Engineering.rar
 Assembly: http://www.mediafire.com/file/zfnt7r9gkmasrjd/Assembly.rar
 
-
+python for pen
+https://www.youtube.com/watch?v=bSpqLfiZygE
 ===============================================
 0x1300 - Mobile Platforms
 ===============================================
 CEHv9 Hacking Mobile Platforms: http://www.mediafire.com/download/l45v3ne52qr9llw/Mobile+platforms.rar
 
-
+android wifi cracking
+https://www.kitploit.com/2018/04/hijacker-v15-all-in-one-wi-fi-cracking.html?m=1
 
 ===============================================
 0x1600 - Computer Forensics
@@ -196,6 +206,8 @@ CHFI Mobile Investigation: http://www.mediafire.com/file/8lu73yi1s79iw1b/CHFI_Mo
 CHFI Investigative Reports: http://www.mediafire.com/file/jz70shpdzso40ne/CHFI_Module_21_Investigative_Reports.rar
 CHFI Expert Witness: http://www.mediafire.com/file/926yco1rhqo2ow2/CHFI_Module_22_Expert_Witness.rar
 
+dumpzilla
+https://www.kitploit.com/2018/05/dumpzilla-extract-all-forensic.html
 
 ===============================================
 0x1400 - CTF Games & Practice
@@ -205,8 +217,7 @@ Webclient & Webserver Challenges: https://root-me.org
 Practice on-the-go Coding: https://hackerrank.com
 Learn How to Code: https://codeacademy.com
 Broken VMs!: https://vulnhub.com
-
-
+htb.eu
 ===============================================
 0x1600 - Libraries & Resources
 ===============================================
@@ -221,7 +232,8 @@ Prepare for OSCP: https://jivoi.github.io/2015/06/19/oscp-prepare/
 All You Nees to Pass OSCP: https://jivoi.github.io/2015/07/03/offensive-security-bookmarks/
 Random Pentest Books: https://github.com/kurobeats/pentest-bookmarks/	
 
-
+Free metasploit
+https://www.offensive-security.com/metasploit-unleashed/
 
 ===============================================
 0x1600 - Misc
@@ -233,7 +245,7 @@ Introduction to Arduino: http://www.mediafire.com/download/pvmstcc4abura43/Ardui
 Raspberry Pi Home Server: http://www.mediafire.com/download/sl36dmuomdld4qa/RaspberryPi+HomeServer.rar
 Raspberry Pi for Developers: http://www.mediafire.com/download/5u2g1svecr1iukm/Raspberry+for+Devs.rar
 
-
+0x1700 - BLOGS, RAW, ETC.
 ================================================
 https://kali4hackers.blogspot.com/p/kali-linux-commands.html
 https://blockchain.berkeley.edu/resources/
@@ -249,12 +261,58 @@ https://null-byte.wonderhowto.com
 https://www.hackers-arise.com
 https://0x00sec.org
 https://www.blackroomsec.com
+https://blog.erratasec.com/2018/05/masscan-macos-and-firewall.html?m=1
+https://pubs.acs.org/doi/10.1021/acs.analchem.8b00237
+https://hkh4cks.com/blog/
 https://tools.kali.org/tools-listing
 http://introcs.cs.princeton.edu/python/
 https://www.cs.princeton.edu/courses/archive/spr11/cos217/lectures/13Assembly.pdf
 
 http://thesprawl.org/projects/dnschef/
 https://training.linuxfoundation.org/resources/
+https://resources.threatstack.com/datasheets/cloud-security-threat-briefing
+https://medium.com/@mateusz.olejarka/finding-hidden-gems-vol-1-forging-oauth-tokens-using-discovered-client-id-and-client-secret-467f1cd21714
+
+https://arxiv.org/pdf/1807.07940.pdf
+
+https://www.peerlyst.com/posts/resource-list-of-car-hacking-tools-car-security-tools-and-car-security-resources-ben-ferris?utm_source=twitter&utm_medium=social&utm_content=peerlyst_post&utm_campaign=peerlyst_shared_post
+
+https://buckets.grayhatwarfare.com
+http://reconvillage.org/talks-2018/#prebellico---100-passive-pre-engagement-and-post-compromise-network-reconnaissance-tool---william-suthers
+
+junkins to help decrypt jenkins pswds
+https://chris408.com
+https://www.kitploit.com
+https://packetstormsecurity.com
+
+deobsfucating XOR strings
+http://www.hexblog.com/?p=1198
+
+bug bounty inspirational guide
+https://docs.google.com/document/d/1YcT2aBD_LecTCJwqw4DENZGXcJgmKGP-UXh06i2HgXg/mobilebasic
+
+https://www.hackread.com/wp-content/uploads/2018/05/MEWKit-Cryptotheft-Newest-Weapon-RiskIQ-Research.pdf?x62286
+https://www.darkreading.com/endpoint/cracking-2fa-how-its-done-and-how-to-stay-safe/d/d-id/1331835
+
+wikileaks cia tools
+https://wikileaks.org/ciav7p1/cms/index.html
+
+http://deniable.org/code/inject-all-the-things
+
+https://sec0wn.blogspot.com/2018/05/prb-backdoor-fully-loaded-powershell.html?m=1
+https://go.newsfusion.com//security/item/1253190
+http://touhidshaikh.com/blog/?p=790
+
+
+
+https://blog.rapid7.com/2018/05/03/hiding-metasploit-shellcode-to-evade-windows-defender/
+
+
+http://www.allitebooks.com/
+
+0x1800 - AWS
+=================================================
+https://www.awseducate.com/signin/SiteLogin
 =================================================
 https://jivoi.github.io/2015/07/03/offensive-security-bookmarks/
 
